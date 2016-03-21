@@ -13,10 +13,9 @@ import com.marasm.cm_rom_helper.valueobjects.TaskResultsVO;
 import com.marasm.cm_rom_helper.worker.AsyncWorker;
 import com.marasm.cm_rom_helper.worker.TaskFactory;
 import com.marasm.cm_rom_helper.worker.AbstractTask;
+import com.marasm.cm_romhelper.BuildConfig;
+import com.marasm.cm_romhelper.R;
 
-import java.util.concurrent.ExecutionException;
-
-import marasm.com.cm_romhelper.R;
 
 public class HomePage extends AppCompatActivity
 {
@@ -31,13 +30,12 @@ public class HomePage extends AppCompatActivity
     Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
     setSupportActionBar(toolbar);
 
+    TextView versionTxt = (TextView)findViewById(R.id.txt_app_version);
+    versionTxt.setText(BuildConfig.VERSION_NAME);
 
-    TextView text = (TextView)findViewById(R.id.checking_root_txt);
-
-    text.setText(R.string.root_check_label);
 
     //see if superuser is available
-    AbstractTask task = TaskFactory.getWorkerTask(TaskType.SU_CHECKER, R.id.root_available_txt);
+    AbstractTask task = TaskFactory.getWorkerTask(TaskType.SU_CHECKER, R.id.txt_root_available);
     AsyncWorker suCheckWorker = new AsyncWorker(this);
     suCheckWorker.execute(task);
     try
