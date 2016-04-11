@@ -12,7 +12,7 @@ public class TaskFactory
     switch (inTaskType)
     {
       case SU_CHECKER:
-        return new SuCheckerTask(inUpdateComponentId);
+        return new SuCheckerTask();
 
       default:
         return null;

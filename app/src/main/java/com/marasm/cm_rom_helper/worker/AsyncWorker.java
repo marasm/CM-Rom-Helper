@@ -8,34 +8,49 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.marasm.cm_rom_helper.valueobjects.TaskResultsVO;
+import com.marasm.cm_rom_helper.valueobjects.WorkerResultsVO;
 
 /**
  * Created by mkorotkovas on 3/8/16.
  */
-public class AsyncWorker extends AsyncTask<AbstractTask, Integer, TaskResultsVO>
+public class AsyncWorker extends AsyncTask<AbstractTask, Integer, WorkerResultsVO>
 {
-  private Context context;
+  private WorkerProgressListener progressListener;
 
-  public AsyncWorker(Context inContext)
+  public AsyncWorker(WorkerProgressListener inProgressListener)
   {
-    context = inContext;
+    progressListener = inProgressListener;
   }
 
 
 
   @Override
-  protected TaskResultsVO doInBackground(AbstractTask... inParams)
+  protected WorkerResultsVO doInBackground(AbstractTask... inTasks)
   {
-    if (inParams == null || inParams[0] == null)
+    if (inTasks == null || inTasks[0] == null)
     {
       throw new IllegalArgumentException("No task supplied for execution");
     }
     publishProgress(Integer.valueOf(0));
 
-    //at this point we only care about the first task
-    TaskResultsVO results =  inParams[0].executeTask();
+    WorkerResultsVO results = new WorkerResultsVO();
+    for(int i = 0; i < inTasks.length; i++)
+    {
+      TaskResultsVO taskRes = inTasks[i].executeTask();
+      publishProgress(Integer.valueOf((i/inTasks.length)*100));
+      results.addTaskResults(taskRes);
+      if (!taskRes.getIsSuccessful())
+      {
+        Log.e(this.getClass().getName(), "Task" + inTasks.getClass().getName() +
+                " execution failed: " + taskRes.getErrorMsg());
+        break;
+      }
+    }
+    if (results.allTasksSuccessfull())
+    {
+      publishProgress(Integer.valueOf(100));
+    }
 
-    publishProgress(Integer.valueOf(100));
     return results;
   }
 
@@ -43,24 +58,31 @@ public class AsyncWorker extends AsyncTask<AbstractTask, Integer, TaskResultsVO>
   protected void onProgressUpdate(Integer... values)
   {
     super.onProgressUpdate(values);
+    progressListener.onProgressChange(values[0]);
   }
 
   @Override
-  protected void onPostExecute(TaskResultsVO inTaskResultsVO)
+  protected void onPostExecute(WorkerResultsVO inWorkerResultsVO)
   {
-    Log.d(this.getClass().getName(), "entering onPostExecute()");
-
-    if (inTaskResultsVO != null && inTaskResultsVO.getResultMessageId() > 0 &&
-            inTaskResultsVO.getTargetTextComponentId() > 0 && context != null)
+    super.onPostExecute(inWorkerResultsVO);
+    if (inWorkerResultsVO.allTasksSuccessfull())
     {
-      View view = ((Activity) context).findViewById(inTaskResultsVO.getTargetTextComponentId());
-      Log.d(this.getClass().getName(), "checking target component compatibility");
-      if (view instanceof TextView)
-      {
-        Log.d(this.getClass().getName(), "updating target component text");
-        ((TextView)view).setText(inTaskResultsVO.getResultMessageId());
-      }
+      progressListener.onWorkComplete(inWorkerResultsVO);
     }
+    else
+    {
+      progressListener.onError(inWorkerResultsVO);
+    }
+  }
 
+
+
+  public interface WorkerProgressListener
+  {
+    public void onProgressChange(int percentDone);
+
+    public void onWorkComplete(WorkerResultsVO inWorkerResults);
+
+    public void onError(WorkerResultsVO inWorkerResultsVO);
   }
 }

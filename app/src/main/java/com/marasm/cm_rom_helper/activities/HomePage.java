@@ -10,19 +10,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
-import android.widget.TextView;
 
-import com.marasm.cm_rom_helper.enums.TaskType;
 import com.marasm.cm_rom_helper.fragments.HomeFragment;
-import com.marasm.cm_rom_helper.valueobjects.TaskResultsVO;
-import com.marasm.cm_rom_helper.worker.AsyncWorker;
-import com.marasm.cm_rom_helper.worker.TaskFactory;
-import com.marasm.cm_rom_helper.worker.AbstractTask;
-import com.marasm.cm_romhelper.BuildConfig;
 import com.marasm.cm_romhelper.R;
 
 
-public class HomePage extends AppCompatActivity
+public class HomePage extends AppCompatActivity implements HomeFragment.OnHomeFragmentActionListener
 {
 
   private boolean rootAvailable = false;
@@ -36,25 +29,24 @@ public class HomePage extends AppCompatActivity
     Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
     setSupportActionBar(toolbar);
 
+    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+    getSupportActionBar().setHomeButtonEnabled(true);
+    getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_menu);
+
     drawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
 
     NavigationView navView = (NavigationView) findViewById(R.id.nav_view);
     // Setup drawer view
     setupDrawerContent(navView);
 
+
     try
     {
-      //see if superuser is available
-      AbstractTask task = TaskFactory.getWorkerTask(TaskType.SU_CHECKER, R.id.txt_root_available);
-      AsyncWorker suCheckWorker = new AsyncWorker(this);
-      suCheckWorker.execute(task);
-      TaskResultsVO suCheckResult = suCheckWorker.get();
-      rootAvailable = suCheckResult.getIsSuccessful();
 
       //set the home fragment
       FragmentManager fragmentManager = getSupportFragmentManager();
       fragmentManager.beginTransaction().replace(R.id.fragment_content,
-              new HomeFragment()).commit();
+              HomeFragment.newInstance()).commit();
 
     }
     catch (Exception e)
@@ -130,5 +122,11 @@ public class HomePage extends AppCompatActivity
     setTitle(menuItem.getTitle());
     // Close the navigation drawer
     drawerLayout.closeDrawers();
+  }
+
+  @Override
+  public void onRootCheckComplete(boolean inRootAvailable)
+  {
+    rootAvailable = inRootAvailable;
   }
 }

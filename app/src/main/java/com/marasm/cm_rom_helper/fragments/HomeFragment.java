@@ -1,32 +1,26 @@
 package com.marasm.cm_rom_helper.fragments;
 
-import android.app.Activity;
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.marasm.cm_rom_helper.constants.Constants;
+import com.marasm.cm_rom_helper.enums.TaskType;
+import com.marasm.cm_rom_helper.valueobjects.TaskResultsVO;
+import com.marasm.cm_rom_helper.valueobjects.WorkerResultsVO;
+import com.marasm.cm_rom_helper.worker.AbstractTask;
+import com.marasm.cm_rom_helper.worker.AsyncWorker;
+import com.marasm.cm_rom_helper.worker.TaskFactory;
 import com.marasm.cm_romhelper.BuildConfig;
 import com.marasm.cm_romhelper.R;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link HomeFragment.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link HomeFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class HomeFragment extends Fragment
+public class HomeFragment extends AbstractFragmentWithCallback<HomeFragment.OnHomeFragmentActionListener>
+  implements AsyncWorker.WorkerProgressListener
 {
-  private boolean rootAvailable;
-
-  private OnFragmentInteractionListener mListener;
+  private View fragmentView;
+  private OnHomeFragmentActionListener callbackActionListener;
   private boolean isRootAvailable;
 
   public HomeFragment()
@@ -38,12 +32,9 @@ public class HomeFragment extends Fragment
    * Use this factory method to create a new instance of
    * this fragment using the provided parameters.
    */
-  public static HomeFragment newInstance(boolean inIsRootAvailable)
+  public static HomeFragment newInstance()
   {
     HomeFragment fragment = new HomeFragment();
-    Bundle args = new Bundle();
-    args.putBoolean(Constants.IS_ROOT_AVAILABLE_PARAM, inIsRootAvailable);
-    fragment.setArguments(args);
     return fragment;
   }
 
@@ -51,53 +42,79 @@ public class HomeFragment extends Fragment
   public void onCreate(Bundle savedInstanceState)
   {
     super.onCreate(savedInstanceState);
-    if (getArguments() != null)
-    {
-      isRootAvailable = getArguments().getBoolean(Constants.IS_ROOT_AVAILABLE_PARAM);
-    }
+    //see if superuser is available
   }
 
   @Override
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
                            Bundle savedInstanceState)
   {
-    View fragmentView = inflater.inflate(R.layout.fragment_home, container, false);
-    TextView versionTxt = (TextView)fragmentView.findViewById(R.id.txt_app_version);
+    fragmentView = inflater.inflate(R.layout.fragment_home, container, false);
 
+    AbstractTask task = TaskFactory.getWorkerTask(TaskType.SU_CHECKER, R.id.txt_root_available);
+    AsyncWorker suCheckWorker = new AsyncWorker(this);
+    suCheckWorker.execute(task);
+
+
+    TextView versionTxt = (TextView)fragmentView.findViewById(R.id.txt_app_version);
     versionTxt.setText(BuildConfig.VERSION_NAME);
 
     return fragmentView;
   }
 
 
+
   @Override
-  public void onAttach(Context context)
+  public void onCallbackHandlerAssigned(OnHomeFragmentActionListener inCallbackHandler)
   {
-    super.onAttach(context);
-
-
+    callbackActionListener = inCallbackHandler;
   }
 
   @Override
   public void onDetach()
   {
     super.onDetach();
-    mListener = null;
+    callbackActionListener = null;
   }
 
-  /**
-   * This interface must be implemented by activities that contain this
-   * fragment to allow an interaction in this fragment to be communicated
-   * to the activity and potentially other fragments contained in that
-   * activity.
-   * <p/>
-   * See the Android Training lesson <a href=
-   * "http://developer.android.com/training/basics/fragments/communicating.html"
-   * >Communicating with Other Fragments</a> for more information.
-   */
-  public interface OnFragmentInteractionListener
+  @Override
+  public void onProgressChange(int percentDone)
   {
-    // TODO: Update argument type and name
-    void onFragmentInteraction(Uri uri);
+
+  }
+
+  @Override
+  public void onWorkComplete(WorkerResultsVO inWorkerResults)
+  {
+    isRootAvailable = inWorkerResults.allTasksSuccessfull();
+    TextView rootAvailableTxt = (TextView)fragmentView.findViewById(R.id.txt_root_available);
+    if (isRootAvailable)
+    {
+      rootAvailableTxt.setText(R.string.txt_root_available);
+    }
+    else
+    {
+      rootAvailableTxt.setText(R.string.txt_root_not_available);
+    }
+    callbackActionListener.onRootCheckComplete(isRootAvailable);
+  }
+
+  @Override
+  public void onError(WorkerResultsVO inWorkerResultsVO)
+  {
+    isRootAvailable = false;
+    TextView rootAvailableTxt = (TextView)fragmentView.findViewById(R.id.txt_root_available);
+    rootAvailableTxt.setText(R.string.txt_root_not_available);
+
+    callbackActionListener.onRootCheckComplete(false);
+  }
+
+
+
+
+
+  public interface OnHomeFragmentActionListener
+  {
+    void onRootCheckComplete(boolean inRootAvailable);
   }
 }

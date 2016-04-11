@@ -7,23 +7,6 @@ import com.marasm.cm_rom_helper.valueobjects.TaskResultsVO;
  */
 public abstract class AbstractTask
 {
-  protected int targetTextCompoinentId;
-
-  public AbstractTask(int inUpdateComponentId)
-  {
-    targetTextCompoinentId = inUpdateComponentId;
-  }
-
-
-  public int getTargetTextCompoinentId()
-  {
-    return targetTextCompoinentId;
-  }
-
-  public void setTargetTextCompoinentId(int targetTextCompoinentId)
-  {
-    this.targetTextCompoinentId = targetTextCompoinentId;
-  }
 
 
   public abstract TaskResultsVO executeTask();

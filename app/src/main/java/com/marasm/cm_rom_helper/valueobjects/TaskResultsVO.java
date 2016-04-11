@@ -6,21 +6,18 @@ package com.marasm.cm_rom_helper.valueobjects;
 public class TaskResultsVO
 {
   private boolean isSuccessful;
-  private int resultMessageId;
-  private int targetTextComponentId;
+  private String errorMsg;
 
   public TaskResultsVO()
   {
     isSuccessful = false;
-    resultMessageId = -1;
-    targetTextComponentId = -1;
   }
 
-  public TaskResultsVO(boolean inIsSuccessful, int inResultMsgId, int inTargetTextComponentId)
+
+  public TaskResultsVO(boolean inIsSuccessful, String inErrorMsg)
   {
     isSuccessful = inIsSuccessful;
-    resultMessageId = inResultMsgId;
-    targetTextComponentId = inTargetTextComponentId;
+    errorMsg = inErrorMsg;
   }
 
 
@@ -35,23 +32,14 @@ public class TaskResultsVO
     this.isSuccessful = isSuccessful;
   }
 
-  public int getResultMessageId()
+
+  public String getErrorMsg()
   {
-    return resultMessageId;
+    return errorMsg;
   }
 
-  public void setResultMessageId(int resultMessageId)
+  public void setErrorMsg(String errorMsg)
   {
-    this.resultMessageId = resultMessageId;
-  }
-
-  public int getTargetTextComponentId()
-  {
-    return targetTextComponentId;
-  }
-
-  public void setTargetTextComponentId(int targetTextComponentId)
-  {
-    this.targetTextComponentId = targetTextComponentId;
+    this.errorMsg = errorMsg;
   }
 }

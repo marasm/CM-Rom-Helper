@@ -14,24 +14,24 @@ import eu.chainfire.libsuperuser.Shell;
 public class SuCheckerTask extends AbstractTask
 {
 
-  public SuCheckerTask(int inUpdateComponentId)
-  {
-    super(inUpdateComponentId);
-  }
 
   @Override
   public TaskResultsVO executeTask()
   {
-    boolean rootAvailable = Shell.SU.available();
 
-    int resultMsgId = R.string.txt_root_not_available;
-    if (rootAvailable)
+    try
     {
-      resultMsgId = R.string.txt_root_available;
+      boolean rootAvailable = Shell.SU.available();
+      Log.d("SU_CHECKER", "root available=" + rootAvailable);
+      return new TaskResultsVO(rootAvailable, null);
+    }
+    catch(Exception e)
+    {
+      Log.e(this.getClass().getName(), "Error while checking root: ", e);
+      return new TaskResultsVO(false, e.getMessage());
     }
 
-    Log.d("SU_CHECKER", "root available=" + rootAvailable);
 
-    return new TaskResultsVO(rootAvailable, resultMsgId, getTargetTextCompoinentId());
+
   }
 }
