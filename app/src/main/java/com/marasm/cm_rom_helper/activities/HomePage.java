@@ -7,26 +7,30 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.view.menu.MenuItemImpl;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
 
 import com.marasm.cm_rom_helper.fragments.HomeFragment;
+import com.marasm.cm_rom_helper.fragments.WallpaperFragment;
 import com.marasm.cm_romhelper.R;
 
 
-public class HomePage extends AppCompatActivity implements HomeFragment.OnHomeFragmentActionListener
+public class HomePage extends AppCompatActivity implements HomeFragment.OnHomeFragmentActionListener,
+        WallpaperFragment.OnWallpaperFragmentActionListener
 {
 
   private boolean rootAvailable = false;
   private DrawerLayout drawerLayout;
+  private Toolbar toolbar;
 
   @Override
   protected void onCreate(Bundle savedInstanceState)
   {
     super.onCreate(savedInstanceState);
     setContentView(R.layout.activity_main);
-    Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+    toolbar = (Toolbar) findViewById(R.id.toolbar);
     setSupportActionBar(toolbar);
 
     getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -39,20 +43,9 @@ public class HomePage extends AppCompatActivity implements HomeFragment.OnHomeFr
     // Setup drawer view
     setupDrawerContent(navView);
 
+    MenuItem homeMI = navView.getMenu().getItem(0);
+    selectDrawerItem(homeMI);
 
-    try
-    {
-
-      //set the home fragment
-      FragmentManager fragmentManager = getSupportFragmentManager();
-      fragmentManager.beginTransaction().replace(R.id.fragment_content,
-              HomeFragment.newInstance()).commit();
-
-    }
-    catch (Exception e)
-    {
-      Log.e(this.getClass().getName(), "Error checking for root access: " + e.getMessage());
-    }
     Log.d(this.getClass().getName(), "Root is available=" + rootAvailable);
   }
 
@@ -100,7 +93,7 @@ public class HomePage extends AppCompatActivity implements HomeFragment.OnHomeFr
         fragmentClass = HomeFragment.class;
         break;
       case R.id.nav_wallppr_fragment:
-        fragmentClass = HomeFragment.class;
+        fragmentClass = WallpaperFragment.class;
         break;
       default:
         fragmentClass = HomeFragment.class;
@@ -128,5 +121,11 @@ public class HomePage extends AppCompatActivity implements HomeFragment.OnHomeFr
   public void onRootCheckComplete(boolean inRootAvailable)
   {
     rootAvailable = inRootAvailable;
+  }
+
+  @Override
+  public void onWallpaperFragmentAction()
+  {
+
   }
 }
