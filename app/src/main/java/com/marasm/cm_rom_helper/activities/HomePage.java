@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.view.menu.MenuItemImpl;
 import android.support.v7.widget.Toolbar;
@@ -33,9 +34,13 @@ public class HomePage extends AppCompatActivity implements HomeFragment.OnHomeFr
     toolbar = (Toolbar) findViewById(R.id.toolbar);
     setSupportActionBar(toolbar);
 
-    getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-    getSupportActionBar().setHomeButtonEnabled(true);
-    getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_action_menu);
+    ActionBar actionBar = getSupportActionBar();
+    if (actionBar != null)
+    {
+      actionBar.setDisplayHomeAsUpEnabled(true);
+      actionBar.setHomeButtonEnabled(true);
+      actionBar.setHomeAsUpIndicator(R.drawable.ic_action_menu);
+    }
 
     drawerLayout = (DrawerLayout)findViewById(R.id.drawer_layout);
 
