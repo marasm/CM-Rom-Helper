@@ -1,4 +1,4 @@
-SUPER_SU_DIR=./SuperSU-v2.46
+SUPER_SU_DIR=./SuperSU-v2.68-M
 
 adb root
 
