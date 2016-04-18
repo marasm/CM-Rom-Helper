@@ -7,7 +7,5 @@ import com.marasm.cm_rom_helper.valueobjects.TaskResultsVO;
  */
 public abstract class AbstractTask
 {
-
-
   public abstract TaskResultsVO executeTask();
 }

@@ -15,6 +15,7 @@ import com.marasm.cm_rom_helper.valueobjects.WorkerResultsVO;
  */
 public class AsyncWorker extends AsyncTask<AbstractTask, Integer, WorkerResultsVO>
 {
+  private final String TAG = this.getClass().getSimpleName();
   private WorkerProgressListener progressListener;
 
   public AsyncWorker(WorkerProgressListener inProgressListener)
@@ -41,7 +42,7 @@ public class AsyncWorker extends AsyncTask<AbstractTask, Integer, WorkerResultsV
       results.addTaskResults(taskRes);
       if (!taskRes.getIsSuccessful())
       {
-        Log.e(this.getClass().getName(), "Task" + inTasks.getClass().getName() +
+        Log.e(TAG, "Task" + inTasks.getClass().getName() +
                 " execution failed: " + taskRes.getErrorMsg());
         break;
       }

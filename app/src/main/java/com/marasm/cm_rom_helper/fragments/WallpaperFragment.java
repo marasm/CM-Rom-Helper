@@ -4,14 +4,24 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 
+import com.marasm.cm_rom_helper.valueobjects.WorkerResultsVO;
+import com.marasm.cm_rom_helper.worker.AsyncWorker;
+import com.marasm.cm_rom_helper.worker.SuShellCommandTask;
+import com.marasm.cm_rom_helper.worker.WorkerProgressListenerToastImpl;
 import com.marasm.cm_romhelper.R;
 
 public class WallpaperFragment extends AbstractFragmentWithCallback<WallpaperFragment.OnWallpaperFragmentActionListener>
 {
+  private static final String CM_WALLPAPER_LOCATION = "/data/system/users/0/";
+
+  private final String TAG = this.getClass().getSimpleName();
+
   private OnWallpaperFragmentActionListener callbackActionListener;
 
   public WallpaperFragment()
@@ -36,10 +46,20 @@ public class WallpaperFragment extends AbstractFragmentWithCallback<WallpaperFra
                            Bundle savedInstanceState)
   {
     // Inflate the layout for this fragment
-    return inflater.inflate(R.layout.fragment_wallpaper, container, false);
+    View wpFragmentView =  inflater.inflate(R.layout.fragment_wallpaper, container, false);
+
+    //setup the button handlers
+    Button removeWpBtn = (Button)wpFragmentView.findViewById(R.id.wallpaper_remove_btn);
+    removeWpBtn.setOnClickListener(new RemoveButtonOnClickListener());
+
+    Button resetWpBtn = (Button)wpFragmentView.findViewById(R.id.wallpaper_reset_btn);
+    resetWpBtn.setOnClickListener(new ResetButtonOnClickListener());
+
+    Button newWpBtn = (Button)wpFragmentView.findViewById(R.id.wallpaper_new_btn);
+    newWpBtn.setOnClickListener(new NewButtonOnClickListener());
+
+    return wpFragmentView;
   }
-
-
 
 
   @Override
@@ -48,14 +68,54 @@ public class WallpaperFragment extends AbstractFragmentWithCallback<WallpaperFra
     super.onDetach();
   }
 
+
+
+
   @Override
   public void onCallbackHandlerAssigned(OnWallpaperFragmentActionListener inCallbackHandler)
   {
     callbackActionListener = inCallbackHandler;
   }
 
+
   public interface OnWallpaperFragmentActionListener
   {
     void onWallpaperFragmentAction();
   }
+
+  private class RemoveButtonOnClickListener implements View.OnClickListener
+  {
+    @Override
+    public void onClick(View v)
+    {
+      Log.d(TAG, "remove button clicked: ");
+
+      SuShellCommandTask cmd = new SuShellCommandTask(
+              "mv " + CM_WALLPAPER_LOCATION + "keyguard_wallpaper " + CM_WALLPAPER_LOCATION + "keyguard_wallpaper.bak");
+
+      AsyncWorker worker = new AsyncWorker(new WorkerProgressListenerToastImpl(
+        getContext(),
+        getString(R.string.toast_lock_scrn_wlppr_reset_success),
+        getString(R.string.toast_lock_scrn_wlppr_reset_fail)));
+
+      worker.execute(cmd);
+    }
+  }
+  private class ResetButtonOnClickListener implements View.OnClickListener
+  {
+    @Override
+    public void onClick(View v)
+    {
+      Log.d(TAG, "reset button clicked: ");
+    }
+  }
+  private class NewButtonOnClickListener implements View.OnClickListener
+  {
+    @Override
+    public void onClick(View v)
+    {
+      Log.d(TAG, "new button clicked: ");
+    }
+  }
+
 }

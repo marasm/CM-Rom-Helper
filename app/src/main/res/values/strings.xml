@@ -1,15 +1,31 @@
 <resources>
     <string name="app_name">CM-RomHelper</string>
 
+    <!-- Title strings-->
+    <string name="ttl_txt_wallpaper">Lockscreen Wallpaper</string>
 
+    <!--labels -->
     <string name="lbl_txt_app_version">App Version:</string>
     <string name="lbl_txt_root_status">Root Status:</string>
+
+    <!-- Button text -->
+    <string name="btn_txt_remove_wallpaper">Remove</string>
+    <string name="btn_txt_reset_wallpaper">Reset</string>
+    <string name="btn_txt_new_wallpaper">New Image</string>
 
     <!-- BEGIN result messages -->
     <string name="txt_root_available">Root is available</string>
     <string name="txt_root_not_available">Root is NOT available</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <!-- END result messages -->
+
+    <!-- Toast messages -->
+    <string name="toast_lock_scrn_wlppr_remove_success">LockScreen wallpaper removed</string>
+    <string name="toast_lock_scrn_wlppr_remove_fail">Failed to remove LockScreen wallpaper</string>
+
+    <string name="toast_lock_scrn_wlppr_reset_success">LockScreen wallpaper reset</string>
+    <string name="toast_lock_scrn_wlppr_reset_fail">Failed to reset LockScreen wallpaper</string>
+
+    <string name="toast_lock_scrn_wlppr_set_success">LockScreen wallpaper set</string>
+    <string name="toast_lock_scrn_wlppr_set_fail">Failed to set LockScreen wallpaper</string>
+    <!-- END Toast messages -->
 </resources>

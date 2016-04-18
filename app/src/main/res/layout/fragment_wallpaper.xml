@@ -11,7 +11,39 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Wallpaper"
-        android:id="@+id/txt_hello"/>
+        android:text="@string/ttl_txt_wallpaper"
+        android:id="@+id/wallpaper_ttl_txt"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title"/>
+
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_txt_remove_wallpaper"
+        android:id="@+id/wallpaper_remove_btn"
+        android:layout_below="@+id/wallpaper_ttl_txt"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:onClick="onWallPaperRemoveButtonClick"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_txt_reset_wallpaper"
+        android:id="@+id/wallpaper_reset_btn"
+        android:layout_below="@+id/wallpaper_remove_btn"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:onClick="onWallPaperResetButtonClick"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_txt_new_wallpaper"
+        android:id="@+id/wallpaper_new_btn"
+        android:layout_below="@+id/wallpaper_reset_btn"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:onClick="onWallPaperNewButtonClick"/>
 
 </RelativeLayout>

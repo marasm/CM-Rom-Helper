@@ -12,7 +12,7 @@ import com.marasm.cm_rom_helper.valueobjects.TaskResultsVO;
 import com.marasm.cm_rom_helper.valueobjects.WorkerResultsVO;
 import com.marasm.cm_rom_helper.worker.AbstractTask;
 import com.marasm.cm_rom_helper.worker.AsyncWorker;
-import com.marasm.cm_rom_helper.worker.TaskFactory;
+import com.marasm.cm_rom_helper.worker.SuCheckerTask;
 import com.marasm.cm_romhelper.BuildConfig;
 import com.marasm.cm_romhelper.R;
 
@@ -51,7 +51,7 @@ public class HomeFragment extends AbstractFragmentWithCallback<HomeFragment.OnHo
   {
     fragmentView = inflater.inflate(R.layout.fragment_home, container, false);
 
-    AbstractTask task = TaskFactory.getWorkerTask(TaskType.SU_CHECKER, R.id.txt_root_available);
+    AbstractTask task = new SuCheckerTask();
     AsyncWorker suCheckWorker = new AsyncWorker(this);
     suCheckWorker.execute(task);
 
