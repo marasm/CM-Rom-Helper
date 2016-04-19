@@ -107,6 +107,23 @@ public class WallpaperFragment extends AbstractFragmentWithCallback<WallpaperFra
     public void onClick(View v)
     {
       Log.d(TAG, "reset button clicked: ");
+
+      //make a backup copy if one already set
+      SuShellCommandTask cmd1 = new SuShellCommandTask(
+              "mv -f " + CM_WALLPAPER_LOCATION + "keyguard_wallpaper " + CM_WALLPAPER_LOCATION + "keyguard_wallpaper.bak 2>/dev/null");
+      //create a link pointing to the regular (launcher) wallpaper
+      SuShellCommandTask cmd2 = new SuShellCommandTask(
+              "ln -s " + CM_WALLPAPER_LOCATION + "wallpaper " + CM_WALLPAPER_LOCATION + "keyguard_wallpaper");
+      //set permissions
+      SuShellCommandTask cmd3 = new SuShellCommandTask(
+              "chown -h system:system " + CM_WALLPAPER_LOCATION + "keyguard_wallpaper");
+
+      AsyncWorker worker = new AsyncWorker(new WorkerProgressListenerToastImpl(
+              getContext(),
+              getString(R.string.toast_lock_scrn_wlppr_reset_success),
+              getString(R.string.toast_lock_scrn_wlppr_reset_fail)));
+
+      worker.execute(cmd1, cmd2, cmd3);
     }
   }
   private class NewButtonOnClickListener implements View.OnClickListener

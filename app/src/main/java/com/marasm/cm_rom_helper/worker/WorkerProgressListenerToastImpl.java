@@ -35,13 +35,13 @@ public class WorkerProgressListenerToastImpl implements AsyncWorker.WorkerProgre
   @Override
   public void onWorkComplete(WorkerResultsVO inWorkerResults)
   {
-    Toast.makeText(context, successMessage, Toast.LENGTH_SHORT);
+    Toast.makeText(context, successMessage, Toast.LENGTH_SHORT).show();
   }
 
   @Override
   public void onError(WorkerResultsVO inWorkerResultsVO)
   {
-    Toast.makeText(context, failMessage, Toast.LENGTH_SHORT);
+    Toast.makeText(context, failMessage, Toast.LENGTH_SHORT).show();
 
   }
 }

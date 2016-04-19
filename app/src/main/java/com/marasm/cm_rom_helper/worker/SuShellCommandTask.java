@@ -32,7 +32,7 @@ public class SuShellCommandTask extends AbstractTask
       List<String> out = Shell.SU.run(command);
       if (out != null)
       {
-        Log.d(TAG, command + " results are:\n " + out.toString());
+        Log.d(TAG, command + " \n " + out.toString());
         isSuccesfull = true;
       }
       else
