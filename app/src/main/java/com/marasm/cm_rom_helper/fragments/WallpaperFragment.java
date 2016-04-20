@@ -95,8 +95,8 @@ public class WallpaperFragment extends AbstractFragmentWithCallback<WallpaperFra
 
       AsyncWorker worker = new AsyncWorker(new WorkerProgressListenerToastImpl(
         getContext(),
-        getString(R.string.toast_lock_scrn_wlppr_reset_success),
-        getString(R.string.toast_lock_scrn_wlppr_reset_fail)));
+        getString(R.string.toast_lock_scrn_wlppr_remove_success),
+        getString(R.string.toast_lock_scrn_wlppr_remove_fail)));
 
       worker.execute(cmd);
     }
