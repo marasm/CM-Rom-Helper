@@ -38,7 +38,7 @@ public class AsyncWorker extends AsyncTask<AbstractTask, Integer, WorkerResultsV
     for(int i = 0; i < inTasks.length; i++)
     {
       TaskResultsVO taskRes = inTasks[i].executeTask();
-      publishProgress(Integer.valueOf((i/inTasks.length)*100));
+      publishProgress(Integer.valueOf((i*100)/inTasks.length));
       results.addTaskResults(taskRes);
       if (!taskRes.getIsSuccessful())
       {

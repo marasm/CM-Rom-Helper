@@ -27,5 +27,7 @@
 
     <string name="toast_lock_scrn_wlppr_set_success">LockScreen wallpaper set</string>
     <string name="toast_lock_scrn_wlppr_set_fail">Failed to set LockScreen wallpaper</string>
+
+    <string name="toast_ext_storage_perm_denied">You will not be able to assign new wallpaper</string>
     <!-- END Toast messages -->
 </resources>
