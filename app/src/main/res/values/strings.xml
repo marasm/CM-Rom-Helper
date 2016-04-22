@@ -12,6 +12,7 @@
     <string name="btn_txt_remove_wallpaper">Remove</string>
     <string name="btn_txt_reset_wallpaper">Reset</string>
     <string name="btn_txt_new_wallpaper">New Image</string>
+    <string name="btn_txt_restart_systemui">Restart SystemUI</string>
 
     <!-- BEGIN result messages -->
     <string name="txt_root_available">Root is available</string>

@@ -23,6 +23,8 @@ import com.marasm.cm_romhelper.R;
 
 import java.io.File;
 
+import eu.chainfire.libsuperuser.Shell;
+
 public class WallpaperFragment extends AbstractFragmentWithCallback<WallpaperFragment.OnWallpaperFragmentActionListener>
 {
   private static final String CM_WALLPAPER_LOCATION = "/data/system/users/0/";
@@ -43,6 +45,7 @@ public class WallpaperFragment extends AbstractFragmentWithCallback<WallpaperFra
   private Button removeWpBtn;
   private Button resetWpBtn;
   private Button newWpBtn;
+  private Button restartSysUiBtn;
 
   public WallpaperFragment()
   {
@@ -78,6 +81,9 @@ public class WallpaperFragment extends AbstractFragmentWithCallback<WallpaperFra
     newWpBtn = (Button)wpFragmentView.findViewById(R.id.wallpaper_new_btn);
     newWpBtn.setOnClickListener(new NewButtonOnClickListener());
     newWpBtn.setEnabled(false);
+
+    restartSysUiBtn = (Button)wpFragmentView.findViewById(R.id.wallpaper_restart_ui_btn);
+    restartSysUiBtn.setOnClickListener(new RestartSysUiButtonOnClickListener());
 
     checkExtStoragePermissions();
 
@@ -141,7 +147,10 @@ public class WallpaperFragment extends AbstractFragmentWithCallback<WallpaperFra
       new SuShellCommandTask(
             "chown -h system:system " + CM_WALLPAPER_LOCATION + "keyguard_wallpaper"),
       new SuShellCommandTask(
-            "chown -h system:system " + CM_WALLPAPER_LOCATION + "keyguard_wallpaper_info.xml")
+            "chown -h system:system " + CM_WALLPAPER_LOCATION + "keyguard_wallpaper_info.xml"),
+    //5. force start systemUI service
+      new SuShellCommandTask(
+            "am startservice --user 0 -n com.android.systemui/.SystemUIService")
     };
 
     AsyncWorker worker = new AsyncWorker(new WorkerProgressListenerToastImpl(
@@ -232,6 +241,17 @@ public class WallpaperFragment extends AbstractFragmentWithCallback<WallpaperFra
 
       startActivityForResult(photoPickerIntent, REQ_CD_INTENT_IMAGE_SELECT);
 
+    }
+  }
+
+  private class RestartSysUiButtonOnClickListener implements View.OnClickListener
+  {
+
+    @Override
+    public void onClick(View v)
+    {
+      Log.d(TAG, "restart sys ui button clicked: ");
+      Shell.SU.run("pkill -f com.android.systemui");
     }
   }
 

@@ -24,7 +24,7 @@
         android:layout_below="@+id/wallpaper_ttl_txt"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"
-        android:onClick="onWallPaperRemoveButtonClick"/>
+        android:background="@android:color/holo_orange_dark"/>
 
     <Button
         android:layout_width="wrap_content"
@@ -34,7 +34,7 @@
         android:layout_below="@+id/wallpaper_remove_btn"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"
-        android:onClick="onWallPaperResetButtonClick"/>
+        android:background="@android:color/holo_green_dark"/>
 
     <Button
         android:layout_width="wrap_content"
@@ -44,6 +44,18 @@
         android:layout_below="@+id/wallpaper_reset_btn"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="50dp"
-        android:onClick="onWallPaperNewButtonClick"/>
+        android:background="@android:color/holo_blue_dark"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_txt_restart_systemui"
+        android:id="@+id/wallpaper_restart_ui_btn"
+        android:layout_below="@+id/wallpaper_new_btn"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="50dp"
+        android:paddingLeft="5dp"
+        android:paddingRight="5dp"
+        android:background="@android:color/holo_red_dark"/>
 
 </RelativeLayout>
