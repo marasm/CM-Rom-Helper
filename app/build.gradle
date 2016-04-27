@@ -4,12 +4,40 @@ android {
     compileSdkVersion 23
     buildToolsVersion "23.0.2"
 
+    def versionPropsFile = new File("version.properties")
+    def Properties versionProps = new Properties()
+    if (versionPropsFile.exists())
+    {
+        versionProps.load(new FileInputStream(versionPropsFile))
+    }
+
+    def incValue = 0
+
+    def runTasks = gradle.startParameter.taskNames
+    if ('assemble' in runTasks || 'assembleRelease' in runTasks || 'aR' in runTasks) {
+        incValue = 1;
+    }
+
+    def versionNum = (versionProps['VERSION_CODE'] ?: "1").toInteger() + incValue
+    def majorVersion = (versionProps['MAJOR_VERSION'] ?: "0").toInteger()
+    def minorVersion = (versionProps['MINOR_VERSION'] ?: "0").toInteger()
+    def buildNumber = (versionProps['BUILD_NUMBER'] ?: "1").toInteger() + 1
+
+
+    versionProps['VERSION_CODE'] = versionNum.toString()
+    versionProps['MAJOR_VERSION'] = majorVersion.toString()
+    versionProps['MINOR_VERSION'] = minorVersion.toString()
+    versionProps['BUILD_NUMBER'] = buildNumber.toString()
+
+    versionProps.store(versionPropsFile.newWriter(), null)
+
+
     defaultConfig {
         applicationId "com.marasm.cm_romhelper"
         minSdkVersion 23
         targetSdkVersion 23
-        versionCode 1
-        versionName "0.1"
+        versionCode versionNum
+        versionName "${majorVersion}.${minorVersion}-(${buildNumber})"
     }
     buildTypes {
         release {
