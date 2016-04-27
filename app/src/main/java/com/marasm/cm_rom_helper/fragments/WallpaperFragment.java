@@ -31,7 +31,7 @@ public class WallpaperFragment extends AbstractFragmentWithCallback<WallpaperFra
 
   private static final String LOCKSCREEN_WP_INFO_FILE_CONTENT =
           "\"<?xml version='1.0' encoding='utf-8' standalone='yes' ?>\n" +
-          "<kwp width=\"1920\" height=\"1920\" name=\"\" />\n\"";
+          "<kwp width=\"1080\" height=\"1920\" name=\"\" />\n\"";
 
   private static final int REQ_CD_INTENT_IMAGE_SELECT = 1;
 
@@ -147,10 +147,8 @@ public class WallpaperFragment extends AbstractFragmentWithCallback<WallpaperFra
       new SuShellCommandTask(
             "chown -h system:system " + CM_WALLPAPER_LOCATION + "keyguard_wallpaper"),
       new SuShellCommandTask(
-            "chown -h system:system " + CM_WALLPAPER_LOCATION + "keyguard_wallpaper_info.xml"),
-    //5. force start systemUI service
-      new SuShellCommandTask(
-            "am startservice --user 0 -n com.android.systemui/.SystemUIService")
+            "chown -h system:system " + CM_WALLPAPER_LOCATION + "keyguard_wallpaper_info.xml")
+    
     };
 
     AsyncWorker worker = new AsyncWorker(new WorkerProgressListenerToastImpl(
