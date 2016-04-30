@@ -27,4 +27,5 @@ public abstract class AbstractFragmentWithCallback<T> extends Fragment
   }
 
   public abstract void onCallbackHandlerAssigned(T inCallbackHandler);
+  public abstract boolean getNeedsRoot();
 }

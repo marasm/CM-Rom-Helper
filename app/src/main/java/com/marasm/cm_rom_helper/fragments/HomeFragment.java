@@ -71,6 +71,12 @@ public class HomeFragment extends AbstractFragmentWithCallback<HomeFragment.OnHo
   }
 
   @Override
+  public boolean getNeedsRoot()
+  {
+    return false;
+  }
+
+  @Override
   public void onDetach()
   {
     super.onDetach();

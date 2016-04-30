@@ -4,12 +4,16 @@
         <item
             android:id="@+id/nav_home_fragment"
             android:icon="@drawable/ic_home"
-            android:title="Home"
+            android:title="@string/mi_home"
             android:checked="true"/>
         <item
             android:id="@+id/nav_wallppr_fragment"
             android:icon="@drawable/ic_wallppr"
-            android:title="Wallpaper" />
+            android:title="@string/mi_lck_screen_wallpaper" />
+        <item
+            android:id="@+id/led_notifications_fragment"
+            android:icon="@drawable/ic_wallppr"
+            android:title="@string/mi_led_notifications" />
 
     </group>
 </menu>

@@ -123,6 +123,12 @@ public class WallpaperFragment extends AbstractFragmentWithCallback<WallpaperFra
   }
 
   @Override
+  public boolean getNeedsRoot()
+  {
+    return true;
+  }
+
+  @Override
   public void onActivityResult(int inRequestCode, int inResultCode, Intent inIntent)
   {
     Log.d(TAG, "onActivityResult result code: " + inResultCode);

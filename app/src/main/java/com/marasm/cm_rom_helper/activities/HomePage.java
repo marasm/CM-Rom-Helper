@@ -2,18 +2,19 @@ package com.marasm.cm_rom_helper.activities;
 
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.view.menu.MenuItemImpl;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.MenuItem;
+import android.widget.Toast;
 
+import com.marasm.cm_rom_helper.fragments.AbstractFragmentWithCallback;
 import com.marasm.cm_rom_helper.fragments.HomeFragment;
+import com.marasm.cm_rom_helper.fragments.LedNotificationsFragment;
 import com.marasm.cm_rom_helper.fragments.WallpaperFragment;
 import com.marasm.cm_romhelper.R;
 
@@ -91,7 +92,7 @@ public class HomePage extends AppCompatActivity implements HomeFragment.OnHomeFr
 
   public void selectDrawerItem(MenuItem menuItem) {
     // Create a new fragment and specify the fragment to show based on nav item clicked
-    Fragment fragment = null;
+    AbstractFragmentWithCallback fragment = null;
     Class fragmentClass;
     switch(menuItem.getItemId()) {
       case R.id.nav_home_fragment:
@@ -100,26 +101,38 @@ public class HomePage extends AppCompatActivity implements HomeFragment.OnHomeFr
       case R.id.nav_wallppr_fragment:
         fragmentClass = WallpaperFragment.class;
         break;
+      case R.id.led_notifications_fragment:
+        fragmentClass = LedNotificationsFragment.class;
+        break;
       default:
         fragmentClass = HomeFragment.class;
     }
 
     try {
-      fragment = (Fragment) fragmentClass.newInstance();
+      fragment = (AbstractFragmentWithCallback) fragmentClass.newInstance();
     } catch (Exception e) {
       e.printStackTrace();
     }
+    
+    //Check if the fragment needs root
+    if(fragment.getNeedsRoot() && rootAvailable)
+    {
+      // Insert the fragment by replacing any existing fragment
+      FragmentManager fragmentManager = getSupportFragmentManager();
+      fragmentManager.beginTransaction().replace(R.id.fragment_content, fragment).commit();
+  
+      // Highlight the selected item has been done by NavigationView
+      menuItem.setChecked(true);
+      // Set action bar title
+      setTitle(menuItem.getTitle());
+      // Close the navigation drawer
+      drawerLayout.closeDrawers();
+    }
+    else
+    {
+      Toast.makeText(this, menuItem.getTitle() + " needs root access!", Toast.LENGTH_SHORT).show();
+    }
 
-    // Insert the fragment by replacing any existing fragment
-    FragmentManager fragmentManager = getSupportFragmentManager();
-    fragmentManager.beginTransaction().replace(R.id.fragment_content, fragment).commit();
-
-    // Highlight the selected item has been done by NavigationView
-    menuItem.setChecked(true);
-    // Set action bar title
-    setTitle(menuItem.getTitle());
-    // Close the navigation drawer
-    drawerLayout.closeDrawers();
   }
 
   @Override
