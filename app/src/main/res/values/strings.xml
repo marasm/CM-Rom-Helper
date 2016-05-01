@@ -56,5 +56,6 @@
     <string name="toast_led_settings_backup_fail">Backup failed</string>
     <string name="toast_led_settings_restore_success">Restore successful</string>
     <string name="toast_led_settings_restore_fail">Restore failed</string>
+    <string name="toast_led_settings_restore_unavailable">No backup found. Restore unavailable.</string>
 
 </resources>
