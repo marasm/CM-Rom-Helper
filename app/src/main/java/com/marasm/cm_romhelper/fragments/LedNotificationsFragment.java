@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.marasm.cm_romhelper.R;
 import com.marasm.cm_romhelper.worker.AsyncWorker;
 import com.marasm.cm_romhelper.worker.CmLedSettingsBackupTask;
+import com.marasm.cm_romhelper.worker.CmLedSettingsRestoreTask;
 import com.marasm.cm_romhelper.worker.WorkerProgressListenerModalAndToastImpl;
 
 import eu.chainfire.libsuperuser.Shell;
@@ -109,8 +110,9 @@ public class LedNotificationsFragment extends AbstractFragmentWithCallback<LedNo
       AsyncWorker worker = new AsyncWorker(
               new WorkerProgressListenerModalAndToastImpl(
                       getContext(),
-                      getString(R.string.txt_led_settings_backup_success),
-                      getString(R.string.txt_led_settings_backup_fail)));
+                      getString(R.string.txt_led_settings_backingup),
+                      getString(R.string.toast_led_settings_backup_success),
+                      getString(R.string.toast_led_settings_backup_fail)));
       worker.execute(backupTask);
     }
   }
@@ -138,8 +140,16 @@ public class LedNotificationsFragment extends AbstractFragmentWithCallback<LedNo
 
       if(DialogInterface.BUTTON_POSITIVE == inChoice)
       {
-        //TODO perform the restore of settings
         Log.d(TAG, "Restoring the LED Notification settings");
+        //perform the restore of settings
+        CmLedSettingsRestoreTask restoreTask = new CmLedSettingsRestoreTask(getContext());
+        AsyncWorker worker = new AsyncWorker(
+                new WorkerProgressListenerModalAndToastImpl(
+                        getContext(),
+                        getString(R.string.txt_led_settings_restoring),
+                        getString(R.string.toast_led_settings_restore_success),
+                        getString(R.string.toast_led_settings_restore_fail)));
+        worker.execute(restoreTask);
       }
 
     }
@@ -153,7 +163,7 @@ public class LedNotificationsFragment extends AbstractFragmentWithCallback<LedNo
       Log.d(TAG, "Restart button clicked. ");
       Log.d(TAG, "Restarting system. ");
       Toast.makeText(getContext(), getString(R.string.toast_restarting_system), Toast.LENGTH_SHORT).show();
-      Shell.SU.run("shutdown -r");
+      Shell.SU.run("reboot");
     }
   }
 

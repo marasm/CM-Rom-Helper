@@ -81,7 +81,7 @@ public class CmLedSettingsBackupTask extends AbstractTask
     return res;
   }
 
-  private LedNotificationSettingsDAO getLedNotificationsSettingsDAO()
+  protected LedNotificationSettingsDAO getLedNotificationsSettingsDAO()
   {
     return new LedNotificationSettingsDAO(context);
   }

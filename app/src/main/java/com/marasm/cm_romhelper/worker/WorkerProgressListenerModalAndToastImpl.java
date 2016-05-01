@@ -16,11 +16,14 @@ public class WorkerProgressListenerModalAndToastImpl implements AsyncWorker.Work
   private Context context;
   private String successMsg;
   private String failMsg;
+  private String modalMsg;
   private ProgressDialog progressDialog;
 
 
-  public WorkerProgressListenerModalAndToastImpl(Context inContext, String inSuccessMsg, String inFailMsg)
+  public WorkerProgressListenerModalAndToastImpl(Context inContext, String inModalMessage,
+                                                 String inSuccessMsg, String inFailMsg)
   {
+    modalMsg = inModalMessage;
     context = inContext;
     successMsg = inSuccessMsg;
     failMsg = inFailMsg;
@@ -35,7 +38,7 @@ public class WorkerProgressListenerModalAndToastImpl implements AsyncWorker.Work
       if (progressDialog == null)
       {
         progressDialog = new ProgressDialog(context);
-        progressDialog.setMessage(context.getString(R.string.txt_led_settings_backingup));
+        progressDialog.setMessage(modalMsg);
         progressDialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
         progressDialog.show();
       }

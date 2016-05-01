@@ -157,6 +157,7 @@ public class WallpaperFragment extends AbstractFragmentWithCallback<WallpaperFra
 
     AsyncWorker worker = new AsyncWorker(new WorkerProgressListenerModalAndToastImpl(
             getContext(),
+            getString(R.string.txt_wallpaper_setting_new),
             getString(R.string.toast_lock_scrn_wlppr_set_success),
             getString(R.string.toast_lock_scrn_wlppr_set_fail)));
     worker.execute(tasks);
@@ -199,6 +200,7 @@ public class WallpaperFragment extends AbstractFragmentWithCallback<WallpaperFra
 
       AsyncWorker worker = new AsyncWorker(new WorkerProgressListenerModalAndToastImpl(
         getContext(),
+        getString(R.string.txt_wallpaper_removing),
         getString(R.string.toast_lock_scrn_wlppr_remove_success),
         getString(R.string.toast_lock_scrn_wlppr_remove_fail)));
 
@@ -224,6 +226,7 @@ public class WallpaperFragment extends AbstractFragmentWithCallback<WallpaperFra
 
       AsyncWorker worker = new AsyncWorker(new WorkerProgressListenerModalAndToastImpl(
               getContext(),
+              getString(R.string.txt_wallpaper_reseting),
               getString(R.string.toast_lock_scrn_wlppr_reset_success),
               getString(R.string.toast_lock_scrn_wlppr_reset_fail)));
 
