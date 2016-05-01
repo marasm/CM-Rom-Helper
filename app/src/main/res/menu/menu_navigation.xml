@@ -12,7 +12,7 @@
             android:title="@string/mi_lck_screen_wallpaper" />
         <item
             android:id="@+id/led_notifications_fragment"
-            android:icon="@drawable/ic_wallppr"
+            android:icon="@drawable/ic_led_notifications"
             android:title="@string/mi_led_notifications" />
 
     </group>
