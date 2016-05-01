@@ -1,18 +1,15 @@
-package com.marasm.cm_rom_helper.fragments;
+package com.marasm.cm_romhelper.fragments;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.marasm.cm_rom_helper.enums.TaskType;
-import com.marasm.cm_rom_helper.valueobjects.TaskResultsVO;
-import com.marasm.cm_rom_helper.valueobjects.WorkerResultsVO;
-import com.marasm.cm_rom_helper.worker.AbstractTask;
-import com.marasm.cm_rom_helper.worker.AsyncWorker;
-import com.marasm.cm_rom_helper.worker.SuCheckerTask;
+import com.marasm.cm_romhelper.valueobjects.WorkerResultsVO;
+import com.marasm.cm_romhelper.worker.AbstractTask;
+import com.marasm.cm_romhelper.worker.AsyncWorker;
+import com.marasm.cm_romhelper.worker.SuCheckerTask;
 import com.marasm.cm_romhelper.BuildConfig;
 import com.marasm.cm_romhelper.R;
 

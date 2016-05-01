@@ -1,4 +1,4 @@
-package com.marasm.cm_rom_helper.valueobjects;
+package com.marasm.cm_romhelper.valueobjects;
 
 /**
  * Created by mkorotkovas on 3/10/16.

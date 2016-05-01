@@ -1,6 +1,6 @@
-package com.marasm.cm_rom_helper.worker;
+package com.marasm.cm_romhelper.worker;
 
-import com.marasm.cm_rom_helper.valueobjects.TaskResultsVO;
+import com.marasm.cm_romhelper.valueobjects.TaskResultsVO;
 
 /**
  * Created by mkorotkovas on 3/9/16.

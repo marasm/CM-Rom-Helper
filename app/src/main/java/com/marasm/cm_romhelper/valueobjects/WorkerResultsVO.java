@@ -1,4 +1,4 @@
-package com.marasm.cm_rom_helper.valueobjects;
+package com.marasm.cm_romhelper.valueobjects;
 
 import java.util.ArrayList;
 import java.util.List;

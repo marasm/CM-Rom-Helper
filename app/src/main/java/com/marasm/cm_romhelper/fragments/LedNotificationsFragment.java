@@ -1,4 +1,4 @@
-package com.marasm.cm_rom_helper.fragments;
+package com.marasm.cm_romhelper.fragments;
 
 import android.net.Uri;
 import android.os.Bundle;

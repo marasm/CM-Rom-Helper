@@ -1,14 +1,10 @@
-package com.marasm.cm_rom_helper.worker;
+package com.marasm.cm_romhelper.worker;
 
-import android.app.Activity;
-import android.content.Context;
 import android.os.AsyncTask;
 import android.util.Log;
-import android.view.View;
-import android.widget.TextView;
 
-import com.marasm.cm_rom_helper.valueobjects.TaskResultsVO;
-import com.marasm.cm_rom_helper.valueobjects.WorkerResultsVO;
+import com.marasm.cm_romhelper.valueobjects.TaskResultsVO;
+import com.marasm.cm_romhelper.valueobjects.WorkerResultsVO;
 
 /**
  * Created by mkorotkovas on 3/8/16.

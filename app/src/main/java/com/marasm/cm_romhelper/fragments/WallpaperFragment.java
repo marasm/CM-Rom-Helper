@@ -1,4 +1,4 @@
-package com.marasm.cm_rom_helper.fragments;
+package com.marasm.cm_romhelper.fragments;
 
 import android.Manifest;
 import android.content.Intent;
@@ -14,14 +14,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
-import com.marasm.cm_rom_helper.util.Utils;
-import com.marasm.cm_rom_helper.worker.AbstractTask;
-import com.marasm.cm_rom_helper.worker.AsyncWorker;
-import com.marasm.cm_rom_helper.worker.SuShellCommandTask;
-import com.marasm.cm_rom_helper.worker.WorkerProgressListenerToastImpl;
+import com.marasm.cm_romhelper.util.Utils;
+import com.marasm.cm_romhelper.worker.AbstractTask;
+import com.marasm.cm_romhelper.worker.AsyncWorker;
+import com.marasm.cm_romhelper.worker.SuShellCommandTask;
+import com.marasm.cm_romhelper.worker.WorkerProgressListenerToastImpl;
 import com.marasm.cm_romhelper.R;
-
-import java.io.File;
 
 import eu.chainfire.libsuperuser.Shell;
 

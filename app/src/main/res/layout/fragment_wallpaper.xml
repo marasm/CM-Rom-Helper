@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@android:color/transparent"
     android:padding="15dp"
-    tools:context="com.marasm.cm_rom_helper.fragments.WallpaperFragment">
+    tools:context="com.marasm.cm_romhelper.fragments.WallpaperFragment">
 
     <TextView
         android:layout_width="wrap_content"

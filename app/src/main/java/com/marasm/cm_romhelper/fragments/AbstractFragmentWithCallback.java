@@ -1,6 +1,5 @@
-package com.marasm.cm_rom_helper.fragments;
+package com.marasm.cm_romhelper.fragments;
 
-import android.app.Activity;
 import android.content.Context;
 import android.support.v4.app.Fragment;
 

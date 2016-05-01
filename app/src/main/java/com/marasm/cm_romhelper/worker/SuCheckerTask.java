@@ -1,9 +1,8 @@
-package com.marasm.cm_rom_helper.worker;
+package com.marasm.cm_romhelper.worker;
 
 import android.util.Log;
 
-import com.marasm.cm_rom_helper.valueobjects.TaskResultsVO;
-import com.marasm.cm_romhelper.R;
+import com.marasm.cm_romhelper.valueobjects.TaskResultsVO;
 
 import eu.chainfire.libsuperuser.Shell;
 

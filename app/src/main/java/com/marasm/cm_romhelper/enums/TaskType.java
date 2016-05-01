@@ -1,4 +1,4 @@
-package com.marasm.cm_rom_helper.enums;
+package com.marasm.cm_romhelper.enums;
 
 /**
  * Created by mkorotkovas on 3/9/16.

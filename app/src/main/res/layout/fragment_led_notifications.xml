@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:background="@android:color/transparent"
     android:padding="15dp"
-    tools:context="com.marasm.cm_rom_helper.fragments.LedNotificationsFragment">
+    tools:context="com.marasm.cm_romhelper.fragments.LedNotificationsFragment">
 
     <TextView
         android:layout_width="wrap_content"

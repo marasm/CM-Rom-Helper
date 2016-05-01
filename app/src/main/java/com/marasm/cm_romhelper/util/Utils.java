@@ -1,4 +1,4 @@
-package com.marasm.cm_rom_helper.util;
+package com.marasm.cm_romhelper.util;
 
 import android.content.Context;
 import android.database.Cursor;

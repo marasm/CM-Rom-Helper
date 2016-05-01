@@ -1,4 +1,4 @@
-package com.marasm.cm_rom_helper.activities;
+package com.marasm.cm_romhelper.activities;
 
 import android.net.Uri;
 import android.os.Bundle;
@@ -13,10 +13,10 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.widget.Toast;
 
-import com.marasm.cm_rom_helper.fragments.AbstractFragmentWithCallback;
-import com.marasm.cm_rom_helper.fragments.HomeFragment;
-import com.marasm.cm_rom_helper.fragments.LedNotificationsFragment;
-import com.marasm.cm_rom_helper.fragments.WallpaperFragment;
+import com.marasm.cm_romhelper.fragments.AbstractFragmentWithCallback;
+import com.marasm.cm_romhelper.fragments.HomeFragment;
+import com.marasm.cm_romhelper.fragments.LedNotificationsFragment;
+import com.marasm.cm_romhelper.fragments.WallpaperFragment;
 import com.marasm.cm_romhelper.R;
 
 

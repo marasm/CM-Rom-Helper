@@ -1,10 +1,10 @@
-package com.marasm.cm_rom_helper.worker;
+package com.marasm.cm_romhelper.worker;
 
 import android.content.Context;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.marasm.cm_rom_helper.valueobjects.WorkerResultsVO;
+import com.marasm.cm_romhelper.valueobjects.WorkerResultsVO;
 
 /**
  * Created by mkorotkovas on 4/18/16.
