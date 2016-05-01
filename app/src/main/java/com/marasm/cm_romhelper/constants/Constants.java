@@ -5,5 +5,6 @@ package com.marasm.cm_romhelper.constants;
  */
 public class Constants
 {
-  public static final String IS_ROOT_AVAILABLE_PARAM = "isRootAvailable";
+  public static final String CM_SETTINGS_DB_FILE = "/data/data/org.cyanogenmod.cmsettings/databases/cmsettings.db";
+
 }

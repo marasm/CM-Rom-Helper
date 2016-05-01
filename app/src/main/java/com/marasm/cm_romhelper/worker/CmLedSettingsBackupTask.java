@@ -3,6 +3,7 @@ package com.marasm.cm_romhelper.worker;
 import android.content.Context;
 import android.util.Log;
 
+import com.marasm.cm_romhelper.constants.Constants;
 import com.marasm.cm_romhelper.dataaccess.LedNotificationSettingsDAO;
 import com.marasm.cm_romhelper.valueobjects.TaskResultsVO;
 
@@ -17,10 +18,8 @@ import eu.chainfire.libsuperuser.Shell;
  */
 public class CmLedSettingsBackupTask extends AbstractTask
 {
-  private static final String CM_SETTINGS_DB_FILE = "/data/data/org.cyanogenmod.cmsettings/databases/cmsettings.db";
-
   private static final String GET_CURRENT_LED_NOTIFICATION_SETTINGS =
-          "sqlite3 " + CM_SETTINGS_DB_FILE +" \"select name||'>'||value from system where name like 'notification_light%'\"";
+          "sqlite3 " + Constants.CM_SETTINGS_DB_FILE +" \"select name||'>'||value from system where name like 'notification_light%'\"";
 
   private final String TAG = this.getClass().getSimpleName();
 
