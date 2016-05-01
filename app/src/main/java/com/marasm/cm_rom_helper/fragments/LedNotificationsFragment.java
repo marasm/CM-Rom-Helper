@@ -19,7 +19,7 @@ import com.marasm.cm_romhelper.R;
  */
 public class LedNotificationsFragment extends AbstractFragmentWithCallback<LedNotificationsFragment.OnLedNotificationAcionListener>
 {
-  private OnLedNotificationAcionListener mListener;
+  private OnLedNotificationAcionListener callbackListener;
 
   public LedNotificationsFragment()
   {
@@ -33,8 +33,9 @@ public class LedNotificationsFragment extends AbstractFragmentWithCallback<LedNo
   }
 
   @Override
-  public void onCreate(Bundle savedInstanceState)
+  public void onCreate(Bundle inSavedInstanceState)
   {
+    super.onCreate(inSavedInstanceState);
   }
 
   @Override
@@ -48,7 +49,7 @@ public class LedNotificationsFragment extends AbstractFragmentWithCallback<LedNo
   @Override
   public void onCallbackHandlerAssigned(OnLedNotificationAcionListener inCallbackHandler)
   {
-
+    callbackListener = inCallbackHandler;
   }
 
   @Override
@@ -61,7 +62,7 @@ public class LedNotificationsFragment extends AbstractFragmentWithCallback<LedNo
   public void onDetach()
   {
     super.onDetach();
-    mListener = null;
+    callbackListener = null;
   }
 
   public interface OnLedNotificationAcionListener

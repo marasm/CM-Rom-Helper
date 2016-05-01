@@ -1,5 +1,6 @@
 package com.marasm.cm_rom_helper.activities;
 
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.FragmentManager;
@@ -20,7 +21,7 @@ import com.marasm.cm_romhelper.R;
 
 
 public class HomePage extends AppCompatActivity implements HomeFragment.OnHomeFragmentActionListener,
-        WallpaperFragment.OnWallpaperFragmentActionListener
+        WallpaperFragment.OnWallpaperFragmentActionListener, LedNotificationsFragment.OnLedNotificationAcionListener
 {
 
   private boolean rootAvailable = false;
@@ -115,7 +116,7 @@ public class HomePage extends AppCompatActivity implements HomeFragment.OnHomeFr
     }
     
     //Check if the fragment needs root
-    if(fragment.getNeedsRoot() && rootAvailable)
+    if(!fragment.getNeedsRoot() || (fragment.getNeedsRoot() && rootAvailable))
     {
       // Insert the fragment by replacing any existing fragment
       FragmentManager fragmentManager = getSupportFragmentManager();
@@ -144,6 +145,13 @@ public class HomePage extends AppCompatActivity implements HomeFragment.OnHomeFr
   @Override
   public void onWallpaperFragmentAction()
   {
+    //nothing so far
+  }
+
+  @Override
+  public void onLedNotificationFragmentAction(Uri uri)
+  {
+    //nothing so far
 
   }
 }
