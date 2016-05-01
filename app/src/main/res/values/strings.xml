@@ -30,7 +30,10 @@
     <!-- BEGIN  messages -->
     <string name="txt_root_available">Root is available</string>
     <string name="txt_root_not_available">Root is NOT available</string>
-    <string name="txt_cur_settings_overwrite">Current LED Notifications settings will be overwritten</string>
+    <string name="txt_led_cur_settings_overwrite">Current LED Notifications settings will be overwritten</string>
+    <string name="txt_led_settings_backup_success">Backup successful</string>
+    <string name="txt_led_settings_backup_fail">Backup failed</string>
+    <string name="txt_led_settings_backingup">Backing up current settings</string>
     <!-- END  messages -->
 
     <!-- Toast messages -->

@@ -14,12 +14,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.marasm.cm_romhelper.R;
 import com.marasm.cm_romhelper.util.Utils;
 import com.marasm.cm_romhelper.worker.AbstractTask;
 import com.marasm.cm_romhelper.worker.AsyncWorker;
 import com.marasm.cm_romhelper.worker.SuShellCommandTask;
-import com.marasm.cm_romhelper.worker.WorkerProgressListenerToastImpl;
-import com.marasm.cm_romhelper.R;
+import com.marasm.cm_romhelper.worker.WorkerProgressListenerModalAndToastImpl;
 
 import eu.chainfire.libsuperuser.Shell;
 
@@ -155,7 +155,7 @@ public class WallpaperFragment extends AbstractFragmentWithCallback<WallpaperFra
     
     };
 
-    AsyncWorker worker = new AsyncWorker(new WorkerProgressListenerToastImpl(
+    AsyncWorker worker = new AsyncWorker(new WorkerProgressListenerModalAndToastImpl(
             getContext(),
             getString(R.string.toast_lock_scrn_wlppr_set_success),
             getString(R.string.toast_lock_scrn_wlppr_set_fail)));
@@ -197,7 +197,7 @@ public class WallpaperFragment extends AbstractFragmentWithCallback<WallpaperFra
       SuShellCommandTask cmd = new SuShellCommandTask(
               "mv " + CM_WALLPAPER_LOCATION + "keyguard_wallpaper " + CM_WALLPAPER_LOCATION + "keyguard_wallpaper.bak");
 
-      AsyncWorker worker = new AsyncWorker(new WorkerProgressListenerToastImpl(
+      AsyncWorker worker = new AsyncWorker(new WorkerProgressListenerModalAndToastImpl(
         getContext(),
         getString(R.string.toast_lock_scrn_wlppr_remove_success),
         getString(R.string.toast_lock_scrn_wlppr_remove_fail)));
@@ -222,7 +222,7 @@ public class WallpaperFragment extends AbstractFragmentWithCallback<WallpaperFra
       SuShellCommandTask cmd3 = new SuShellCommandTask(
               "chown -h system:system " + CM_WALLPAPER_LOCATION + "keyguard_wallpaper");
 
-      AsyncWorker worker = new AsyncWorker(new WorkerProgressListenerToastImpl(
+      AsyncWorker worker = new AsyncWorker(new WorkerProgressListenerModalAndToastImpl(
               getContext(),
               getString(R.string.toast_lock_scrn_wlppr_reset_success),
               getString(R.string.toast_lock_scrn_wlppr_reset_fail)));

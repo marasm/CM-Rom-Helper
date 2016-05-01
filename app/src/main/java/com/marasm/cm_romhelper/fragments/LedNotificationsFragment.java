@@ -13,6 +13,9 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.marasm.cm_romhelper.R;
+import com.marasm.cm_romhelper.worker.AsyncWorker;
+import com.marasm.cm_romhelper.worker.CmLedSettingsBackupTask;
+import com.marasm.cm_romhelper.worker.WorkerProgressListenerModalAndToastImpl;
 
 import eu.chainfire.libsuperuser.Shell;
 
@@ -26,11 +29,6 @@ import eu.chainfire.libsuperuser.Shell;
  */
 public class LedNotificationsFragment extends AbstractFragmentWithCallback<LedNotificationsFragment.OnLedNotificationAcionListener>
 {
-  private static final String CM_SETTINGS_DB_FILE = "/data/data/org.cyanogenmod.cmsettings/databases/cmsettings.db";
-
-  private static final String GET_CURRENT_LED_NOTIFICATION_SETTINGS =
-     "sqlite3 " + CM_SETTINGS_DB_FILE +" \"select name||'>'||value from system where name like 'notification_light%'\"";
-
   private final String TAG = this.getClass().getSimpleName();
 
   private OnLedNotificationAcionListener callbackListener;
@@ -106,7 +104,14 @@ public class LedNotificationsFragment extends AbstractFragmentWithCallback<LedNo
     public void onClick(View v)
     {
       Log.d(TAG, "Backup button clicked");
-      //TODO perform the backup
+      //perform the backup
+      CmLedSettingsBackupTask backupTask = new CmLedSettingsBackupTask();
+      AsyncWorker worker = new AsyncWorker(
+              new WorkerProgressListenerModalAndToastImpl(
+                      getContext(),
+                      getString(R.string.txt_led_settings_backup_success),
+                      getString(R.string.txt_led_settings_backup_fail)));
+      worker.execute(backupTask);
     }
   }
   private class RestoreButtonOnClickListener implements View.OnClickListener
@@ -117,7 +122,7 @@ public class LedNotificationsFragment extends AbstractFragmentWithCallback<LedNo
       Log.d(TAG, "Restore button clicked");
       AlertDialog.Builder builder = new AlertDialog.Builder(getActivity())
               .setTitle(R.string.ttl_txt_confirm_settings_restore)
-              .setMessage(R.string.txt_cur_settings_overwrite)
+              .setMessage(R.string.txt_led_cur_settings_overwrite)
               .setPositiveButton(R.string.btn_alert_confirm, new RestoreConfirmationOnClickListener())
               .setNegativeButton(R.string.btn_alert_cancel, new RestoreConfirmationOnClickListener());
       builder.create().show();
