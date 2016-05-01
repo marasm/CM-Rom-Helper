@@ -105,7 +105,7 @@ public class LedNotificationsFragment extends AbstractFragmentWithCallback<LedNo
     {
       Log.d(TAG, "Backup button clicked");
       //perform the backup
-      CmLedSettingsBackupTask backupTask = new CmLedSettingsBackupTask();
+      CmLedSettingsBackupTask backupTask = new CmLedSettingsBackupTask(getContext());
       AsyncWorker worker = new AsyncWorker(
               new WorkerProgressListenerModalAndToastImpl(
                       getContext(),
