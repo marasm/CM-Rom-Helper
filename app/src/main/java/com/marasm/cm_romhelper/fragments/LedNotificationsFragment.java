@@ -1,13 +1,20 @@
 package com.marasm.cm_romhelper.fragments;
 
+import android.app.AlertDialog;
+import android.app.Fragment;
+import android.content.DialogInterface;
 import android.net.Uri;
 import android.os.Bundle;
-import android.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.Toast;
 
 import com.marasm.cm_romhelper.R;
+
+import eu.chainfire.libsuperuser.Shell;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -19,7 +26,18 @@ import com.marasm.cm_romhelper.R;
  */
 public class LedNotificationsFragment extends AbstractFragmentWithCallback<LedNotificationsFragment.OnLedNotificationAcionListener>
 {
+  private static final String CM_SETTINGS_DB_FILE = "/data/data/org.cyanogenmod.cmsettings/databases/cmsettings.db";
+
+  private static final String GET_CURRENT_LED_NOTIFICATION_SETTINGS =
+     "sqlite3 " + CM_SETTINGS_DB_FILE +" \"select name||'>'||value from system where name like 'notification_light%'\"";
+
+  private final String TAG = this.getClass().getSimpleName();
+
   private OnLedNotificationAcionListener callbackListener;
+
+  private Button backupButton;
+  private Button restoreButton;
+  private Button restartButton;
 
   public LedNotificationsFragment()
   {
@@ -42,7 +60,19 @@ public class LedNotificationsFragment extends AbstractFragmentWithCallback<LedNo
   public View onCreateView(LayoutInflater inflater, ViewGroup container,
                            Bundle savedInstanceState)
   {
-    return inflater.inflate(R.layout.fragment_led_notifications, container, false);
+    View fragmentView = inflater.inflate(R.layout.fragment_led_notifications, container, false);
+
+    backupButton = (Button) fragmentView.findViewById(R.id.led_notifications_backup_btn);
+    backupButton.setOnClickListener(new BackupButtonOnClickListener());
+
+    restoreButton = (Button) fragmentView.findViewById(R.id.led_notifications_restore_btn);
+    restoreButton.setOnClickListener(new RestoreButtonOnClickListener());
+
+    restartButton = (Button) fragmentView.findViewById(R.id.led_notifications_restart_system_btn);
+    restartButton.setOnClickListener(new RestartButtonOnClickListener());
+
+
+    return fragmentView;
   }
 
 
@@ -69,4 +99,57 @@ public class LedNotificationsFragment extends AbstractFragmentWithCallback<LedNo
   {
     void onLedNotificationFragmentAction(Uri uri);
   }
+
+  private class BackupButtonOnClickListener implements View.OnClickListener
+  {
+    @Override
+    public void onClick(View v)
+    {
+      Log.d(TAG, "Backup button clicked");
+      //TODO perform the backup
+    }
+  }
+  private class RestoreButtonOnClickListener implements View.OnClickListener
+  {
+    @Override
+    public void onClick(View v)
+    {
+      Log.d(TAG, "Restore button clicked");
+      AlertDialog.Builder builder = new AlertDialog.Builder(getActivity())
+              .setTitle(R.string.ttl_txt_confirm_settings_restore)
+              .setMessage(R.string.txt_cur_settings_overwrite)
+              .setPositiveButton(R.string.btn_alert_confirm, new RestoreConfirmationOnClickListener())
+              .setNegativeButton(R.string.btn_alert_cancel, new RestoreConfirmationOnClickListener());
+      builder.create().show();
+    }
+  }
+
+  private class RestoreConfirmationOnClickListener implements DialogInterface.OnClickListener
+  {
+    @Override
+    public void onClick(DialogInterface inDialog, int inChoice)
+    {
+      Log.d(TAG, "Restore setting confirmation clicked. Choice: " + inChoice);
+
+      if(DialogInterface.BUTTON_POSITIVE == inChoice)
+      {
+        //TODO perform the restore of settings
+        Log.d(TAG, "Restoring the LED Notification settings");
+      }
+
+    }
+  }
+
+  private class RestartButtonOnClickListener implements View.OnClickListener
+  {
+    @Override
+    public void onClick(View v)
+    {
+      Log.d(TAG, "Restart button clicked. ");
+      Log.d(TAG, "Restarting system. ");
+      Toast.makeText(getContext(), getString(R.string.toast_restarting_system), Toast.LENGTH_SHORT).show();
+      Shell.SU.run("shutdown -r");
+    }
+  }
+
 }

@@ -131,7 +131,7 @@ public class HomePage extends AppCompatActivity implements HomeFragment.OnHomeFr
     }
     else
     {
-      Toast.makeText(this, menuItem.getTitle() + " needs root access!", Toast.LENGTH_SHORT).show();
+      Toast.makeText(this, menuItem.getTitle() + getString(R.string.toast_mi_needs_root), Toast.LENGTH_SHORT).show();
     }
 
   }

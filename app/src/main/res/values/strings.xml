@@ -10,6 +10,7 @@
     <!-- Title strings-->
     <string name="ttl_txt_wallpaper">Lockscreen Wallpaper</string>
     <string name="ttl_txt_led_notifications">LED Notifications</string>
+    <string name="ttl_txt_confirm_settings_restore">Confirm Restore</string>
 
     <!--labels -->
     <string name="lbl_txt_app_version">App Version:</string>
@@ -23,11 +24,14 @@
     <string name="btn_txt_restart_system">Restart Phone</string>
     <string name="btn_txt_restore">Restore</string>
     <string name="btn_txt_backup">Backup</string>
+    <string name="btn_alert_confirm">Confirm</string>
+    <string name="btn_alert_cancel">Cancel</string>
 
-    <!-- BEGIN result messages -->
+    <!-- BEGIN  messages -->
     <string name="txt_root_available">Root is available</string>
     <string name="txt_root_not_available">Root is NOT available</string>
-    <!-- END result messages -->
+    <string name="txt_cur_settings_overwrite">Current LED Notifications settings will be overwritten</string>
+    <!-- END  messages -->
 
     <!-- Toast messages -->
     <string name="toast_lock_scrn_wlppr_remove_success">LockScreen wallpaper removed</string>
@@ -40,8 +44,7 @@
     <string name="toast_lock_scrn_wlppr_set_fail">Failed to set LockScreen wallpaper</string>
 
     <string name="toast_ext_storage_perm_denied">You will not be able to assign new wallpaper</string>
+    <string name="toast_mi_needs_root"> needs root access!</string>
+    <string name="toast_restarting_system"> Restarting</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <!-- END Toast messages -->
 </resources>
